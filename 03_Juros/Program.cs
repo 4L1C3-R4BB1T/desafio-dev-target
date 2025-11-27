@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Juros;
 
@@ -11,11 +12,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        double valor;
+        const decimal taxa = 0.025m;
+
+        decimal valor;
         while (true)
         {
             Console.Write("Valor: ");
-            if (double.TryParse(Console.ReadLine(), out valor) && valor > 0) break;
+            if (decimal.TryParse(Console.ReadLine(), NumberStyles.Number,
+                CultureInfo.CurrentCulture, out valor) && valor > 0m) break;
             Console.WriteLine("Valor inválido. Digite novamente.");
         }
 
@@ -30,18 +34,21 @@ class Program
 
         DateTime dataHoje = DateTime.Today;
 
-        if (dataHoje > dataVencimento)
+        if (dataHoje <= dataVencimento)
         {
-            TimeSpan diff = dataHoje - dataVencimento;
-            double dias = diff.TotalDays;
-
-            for (int i = 1; i <= dias; i++)
-            {
-                valor += valor * 0.025;
-            }
+            Console.WriteLine($"\nSem juros. Vencimento: {dataVencimento:dd/MM/yyyy}. Valor: R$ {valor:F2}");
+            return;
         }
 
-        Console.WriteLine($"\nJuros hoje [{dataHoje.ToString("dd/MM/yyyy")}]: R$ {valor:F2}");
+        int diasAtraso = (dataHoje - dataVencimento).Days;
+
+        decimal jurosSimples = decimal.Round(valor + valor * taxa * diasAtraso);
+        decimal jurosComposto = decimal.Round(valor * (decimal)Math.Pow((double)(1 + taxa), diasAtraso));
+
+        Console.WriteLine($"\nDias de atraso: {diasAtraso}");
+        Console.WriteLine($"Valor original: R$ {valor:F2}");
+        Console.WriteLine($"Valor com juros simples: R$ {jurosSimples:F2}");
+        Console.WriteLine($"Valor com juros compostos: R$ {jurosComposto:F2}");
     }
 }
 
