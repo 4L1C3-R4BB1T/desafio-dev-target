@@ -2,15 +2,15 @@
 
 namespace Juros;
 
+/*
+    3. Faça um programa que a partir de um valor e de uma data de vencimento, calcule o valor dos juros 
+    na data de hoje considerando que a multa seja de 2,5% ao dia.
+*/
+
 class Program
 {
     static void Main(string[] args)
     {
-
-        /*
-            Faça um programa que a partir de um valor e de uma data de vencimento, calcule o valor dos juros na data de hoje considerando que a multa seja de 2,5% ao dia.
-        */
-
         double valor;
         while (true)
         {
