@@ -42,8 +42,8 @@ class Program
 
         int diasAtraso = (dataHoje - dataVencimento).Days;
 
-        decimal jurosSimples = decimal.Round(valor + valor * taxa * diasAtraso);
-        decimal jurosComposto = decimal.Round(valor * (decimal)Math.Pow((double)(1 + taxa), diasAtraso));
+        decimal jurosSimples = valor + valor * taxa * diasAtraso;
+        decimal jurosComposto = valor * (decimal)Math.Pow((double)(1 + taxa), diasAtraso);
 
         Console.WriteLine($"\nDias de atraso: {diasAtraso}");
         Console.WriteLine($"Valor original: R$ {valor:F2}");
