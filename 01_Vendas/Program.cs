@@ -61,8 +61,8 @@ class Program
 
     static double CalcularComissao(double valor)
     {
-        if (valor >= 500.00) return valor * 0.05;
-        else if (valor < 100) return 0;
-        return valor * 0.01;
+        if (valor < 100) return 0;
+        else if (valor < 500) return valor * 0.01;
+        return valor * 0.05;
     }
 }
